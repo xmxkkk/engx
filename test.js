@@ -1,8 +1,15 @@
+'use strict'
 
-var event={"down":{type:"down"},"up":{type:"up"}};
+class Node{
+	constructor(x,y){
+		this.x=x;
+		this.y=y;
+	}
+	toString(){
+		return this.x+","+this.y;
+	}
+}
 
-console.log(event);
+let node=new Node(1,2);
 
-delete event["down"];
-
-console.log(event);
+console.log(node);

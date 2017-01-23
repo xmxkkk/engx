@@ -12,28 +12,10 @@
 	<script type="text/javascript" src="./js/layer.js"></script>
 	<script type="text/javascript" src="./js/sprite.js"></script>
 	<script type="text/javascript" src="./js/action.js"></script>
-	<script type="text/javascript" src="./js/event.js"></script>
+	<script type="text/javascript" src="./js/eventManager.js"></script>
 	<script type="text/javascript" src="./js/demo.js"></script>
-	<!--
-	<script type="text/javascript">
-	var coords = { x: 0, y: 0 };
-	var tween = new TWEEN.Tween(coords)
-    .to({ x: 100, y: 100 }, 1000)
-    .onUpdate(function() {
-        console.log(this.x, this.y);
-    })
-    .start();
-
-requestAnimationFrame(animate);
-
-function animate(time) {
-    requestAnimationFrame(animate);
-    TWEEN.update(time);
-}
-
-	</script>-->
 </head>
-<body onload="load()" style="padding:100px;margin:0;">
+<body onload="load()" style="padding:0;margin:0;">
 <canvas id="canvas"></canvas>
 <div onclick="stopAction()">stop</div>
 <div onclick="pauseAction()">pause</div>

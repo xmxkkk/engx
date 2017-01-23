@@ -1,6 +1,8 @@
 var Sprite=function(){
     var self=this;
 
+    this.id=null;
+
     this.shape="box";
 
     this.anchor={x:0.5,y:0.5};
@@ -15,8 +17,19 @@ var Sprite=function(){
     this.scene=null;
     this.layer=null;
 
-    this.event=[];
-
+    this.events=[];
+    this.init=function(){
+        for(var i=0;i<eventNames.length;i++){
+            var name=eventNames[i];
+            this.events[name]=null;
+        }
+        this.id=(parseInt(Math.random()*100000000)+10000000)+"-"+
+            (parseInt(Math.random()*100000000)+10000000)+"-"+
+            (parseInt(Math.random()*100000000)+10000000)+"-"+
+            (parseInt(Math.random()*100000000)+10000000)+"-";
+    }
+    this.init();
+    
     this.draw=function(cxt){
         if(this.texture&&this.scene.resource[this.texture]){
             var img=this.scene.resource[this.texture];
@@ -52,29 +65,30 @@ var Sprite=function(){
                 cxt.stroke();
             }
 
-            if(_canvas.event){
-                var currEvent=this.event[_canvas.event.type];
-                if(currEvent){
-                    var px=_canvas.event.layerX;
-                    var py=_canvas.event.layerY;
-
+            for(var i=0;i<eventNames.length;i++){
+                var name=eventNames[i];
+                if(this.events[name]&&this.events[name].event){
+                    var px=this.events[name].event.layerX;
+                    var py=this.events[name].event.layerY;
                     if(cxt.isPointInPath(px,py)){
-                        currEvent.callbck(_canvas.event);
+                        this.events[name].callback(this.events[name].event);
+                        delete this.events[name].event;
                     }
                 }
             }
-
+            
             cxt.restore();
         }
     }
-    this.addEvent=function(eventType,callbck){
+    this.addEvent=function(eventType,callback){
         // this.eventType=eventType;
-        // this.eventCallback=callbck;
-        this.event[eventType]={type:eventType,callbck:callbck};
+        // this.eventCallback=callback;
+        this.events[eventType]={type:eventType,event:null,callback:callback};
+        _eventManager.sprites[this.id]=this;
     }
     this.removeEvent=function(eventType){
         // this.event[this.eventType]=null;
-        delete this.event[this.eventType];
+        delete this.events[this.eventType];
     }
     this.runAction=function(action){
         action.sprite=this;

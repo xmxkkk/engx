@@ -13,6 +13,10 @@ var Engx=function(canvas,opt){
         var render=new Render(opt);
         render.init();
 
+        var eventManager=new EventManager();
+        eventManager.init();
+
+        window._eventManager=eventManager;
         window._render=render;
         window._sceneManager= sceneManager;
     }
