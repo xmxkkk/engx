@@ -30,17 +30,6 @@ var Text = function (_Layer) {
 		_this.strokeStyle = opt.strokeStyle || "rgb(200,200,200)";
 		return _this;
 	}
-	/*
- 	set textAlign(_textAlign){
- 		this['textAlign']=_textAlign;
- 		if(_textAlign=="center"){
- 			this.anchor={x:0.5,y:0.5};
- 		}else if(_textAlign=="left"){
- 			this.anchor={x:0,y:0.5};
- 		}else if(_textAlign=="right"){
- 			this.anchor={x:0.5,y:0};
- 		}
- 	}*/
 
 	_createClass(Text, [{
 		key: "draw",

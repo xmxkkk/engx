@@ -16,18 +16,6 @@ class Text extends Layer{
 		this.fillStyle=opt.fillStyle||"rgb(200,200,200)";
 		this.strokeStyle=opt.strokeStyle||"rgb(200,200,200)";
 	}
-/*
-	set textAlign(_textAlign){
-		this['textAlign']=_textAlign;
-		if(_textAlign=="center"){
-			this.anchor={x:0.5,y:0.5};
-		}else if(_textAlign=="left"){
-			this.anchor={x:0,y:0.5};
-		}else if(_textAlign=="right"){
-			this.anchor={x:0.5,y:0};
-		}
-	}*/
-
 	draw(cxt){
 		if(this.text){
 			cxt.save();

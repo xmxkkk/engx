@@ -21,17 +21,16 @@ class Action{
 	    var self=this;
 
 	    this.tween=new TWEEN.Tween(oldProp).to(newProp,this.time)
-	      .onStart(this.onStart)
-	      .onUpdate(update)
-	      .onStop(this.onStop)
-	      .onComplete(this.onComplete)
-	      .delay(this.delay)
-	      .repeat(this.repeat)
-	      .repeatDelay(this.repeatDelay)
-	      .yoyo(this.yoyo)
-	      .easing(this.easing)
-
-	      .start(_engx.render.getTime());
+	    	.onStart(this.onStart)
+		    .onUpdate(update)
+		    .onStop(this.onStop)
+		    .onComplete(this.onComplete)
+		    .delay(this.delay)
+		    .repeat(this.repeat)
+		    .repeatDelay(this.repeatDelay)
+		    .yoyo(this.yoyo)
+		    .easing(this.easing)
+			.start(_engx.render.getTime());
 	}
 	stop(){
 		this.tween&&this.tween.stop();
@@ -42,112 +41,112 @@ class Action{
 }
 
 class MoveToAction extends Action{
-  constructor(opt){
-    super(opt);
-    this.position=opt.position||{x:0,y:0};
-  }
-  start(){
-    var self=this;
-    this.preStart(this.sprite.position,this.position,function(val){
-          self.sprite.scale=val;
-          self.onUpdate&&self.onUpdate(val);
-    });
-  }
+	constructor(opt){
+	    super(opt);
+	    this.position=opt.position||{x:0,y:0};
+	}
+	start(){
+	    var self=this;
+	    this.preStart(this.sprite.position,this.position,function(val){
+	          self.sprite.scale=val;
+	          self.onUpdate&&self.onUpdate(val);
+	    });
+	}
 }
 
 class MoveByAction extends Action{
-  constructor(opt){
-    super(opt);
-    this.position=opt.position||{x:0,y:0};
-  }
-  start(){
-    var self=this;
+	constructor(opt){
+	    super(opt);
+	    this.position=opt.position||{x:0,y:0};
+	}
+	start(){
+	    var self=this;
 
-    var toX=(this.position.x?this.position.x:0)+this.sprite.position.x;
-    var toY=(this.position.y?this.position.y:0)+this.sprite.position.y;
+	    var toX=(this.position.x?this.position.x:0)+this.sprite.position.x;
+	    var toY=(this.position.y?this.position.y:0)+this.sprite.position.y;
 
-    this.preStart(this.sprite.position,{x:toX,y:toY},function(val){
-          self.sprite.scale=val;
-          self.onUpdate&&self.onUpdate(val);
-    });
-  }
+	    this.preStart(this.sprite.position,{x:toX,y:toY},function(val){
+	          self.sprite.scale=val;
+	          self.onUpdate&&self.onUpdate(val);
+	    });
+	}
 }
 
 class ScaleToAction extends Action{
-  constructor(opt){
-    super(opt);
-    this.scale=opt.scale||{x:1,y:1};
-  }
-  start(){
-    var self=this;
-    this.preStart(this.sprite.scale,this.scale,function(val){
-          self.sprite.scale=val;
-          self.onUpdate&&self.onUpdate(val);
-    });
-  }
+	constructor(opt){
+	    super(opt);
+	    this.scale=opt.scale||{x:1,y:1};
+	}
+	start(){
+	    var self=this;
+	    this.preStart(this.sprite.scale,this.scale,function(val){
+	          self.sprite.scale=val;
+	          self.onUpdate&&self.onUpdate(val);
+	    });
+	}
 }
 
 class ScaleByAction extends Action{
-  constructor(opt){
-    super(opt);
-    this.scale=opt.scale||{x:1,y:1};
-  }
-  start(){
-    var self=this;
+	constructor(opt){
+	    super(opt);
+	    this.scale=opt.scale||{x:1,y:1};
+	}
+	start(){
+	    var self=this;
 
-    var toX=(this.scale.x?this.scale.x:0)+this.sprite.scale.x;
-    var toY=(this.scale.y?this.scale.y:0)+this.sprite.scale.y;
+	    var toX=(this.scale.x?this.scale.x:0)+this.sprite.scale.x;
+	    var toY=(this.scale.y?this.scale.y:0)+this.sprite.scale.y;
 
-    var self=this;
-    this.preStart(this.sprite.scale,{x:toX,y:toY},function(val){
-          self.sprite.scale=val;
-          self.onUpdate&&self.onUpdate(val);
-    });
-  }
+	    var self=this;
+	    this.preStart(this.sprite.scale,{x:toX,y:toY},function(val){
+	          self.sprite.scale=val;
+	          self.onUpdate&&self.onUpdate(val);
+	    });
+	}
 }
 
 class RotateToAction extends Action{
-  constructor(opt){
-    super(opt);
-    this.rotate=opt.rotate||0;
-  }
-  start(){
-    var self=this;
-    this.preStart({rotate:this.sprite.rotate},{rotate:this.rotate},function(val){
-          self.sprite.scale=val;
-          self.onUpdate&&self.onUpdate(val);
-    });
-  }
+	constructor(opt){
+	    super(opt);
+	    this.rotate=opt.rotate||0;
+	}
+	start(){
+	    var self=this;
+	    this.preStart({rotate:this.sprite.rotate},{rotate:this.rotate},function(val){
+	          self.sprite.scale=val;
+	          self.onUpdate&&self.onUpdate(val);
+	    });
+	}
 }
 
 class RotateByAction extends Action{
-  constructor(opt){
-    super(opt);
-    this.rotate=opt.rotate||0;
-  }
-  start(){
-    var self=this;
-    var toRotate=this.rotate+this.sprite.rotate;
+	constructor(opt){
+	    super(opt);
+	    this.rotate=opt.rotate||0;
+	}
+	start(){
+	    var self=this;
+	    var toRotate=this.rotate+this.sprite.rotate;
 
-    this.preStart({rotate:this.sprite.rotate},{rotate:toRotate},function(val){
-          self.sprite.scale=val;
-          self.onUpdate&&self.onUpdate(val);
-    });
-  }
+	    this.preStart({rotate:this.sprite.rotate},{rotate:toRotate},function(val){
+	          self.sprite.scale=val;
+	          self.onUpdate&&self.onUpdate(val);
+	    });
+	}
 }
 class AlphaAction extends Action{
-  constructor(opt){
-    super(opt);
-    this.alpha=opt.alpha||0;
-  }
-  start(){
-    var self=this;
-    this.preStart({alpha:this.sprite.alpha},{alpha:this.alpha},function(val){
-		log(val);
-        self.sprite.alpha=val;
-        self.onUpdate&&self.onUpdate(val);
-    });
-  }
+	constructor(opt){
+	    super(opt);
+	    this.alpha=opt.alpha||0;
+	}
+	start(){
+	    var self=this;
+	    this.preStart({alpha:this.sprite.alpha},{alpha:this.alpha},function(val){
+			log(val);
+	        self.sprite.alpha=val;
+	        self.onUpdate&&self.onUpdate(val);
+	    });
+	}
 }
 
 class AnimateAction extends Action{
