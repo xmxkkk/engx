@@ -3,23 +3,75 @@
 <head>
 	<meta charset="utf-8">
 	<title></title>
-	<script type="text/javascript" src="./js/func.js"></script>
-	<script type="text/javascript" src="./js/Tween.js"></script>
-	<script type="text/javascript" src="./js/engx.js"></script>
-	<script type="text/javascript" src="./js/render.js"></script>
-	<script type="text/javascript" src="./js/scene.js"></script>
-	<script type="text/javascript" src="./js/sceneManager.js"></script>
-	<script type="text/javascript" src="./js/layer.js"></script>
-	<script type="text/javascript" src="./js/sprite.js"></script>
-	<script type="text/javascript" src="./js/action.js"></script>
-	<script type="text/javascript" src="./js/eventManager.js"></script>
-	<script type="text/javascript" src="./js/demo.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+
+	<!-- <script src="./lib/babel.min.js"></script> -->
+	<script src="./lib/Tween.js"></script>
+	<script src="./lib/math.js"></script>
+
+	<script src="./dist/function.js" charset="utf-8"></script>
+	<script src="./dist/engx.js" charset="utf-8"></script>
+	<script src="./dist/render.js" charset="utf-8"></script>
+	<script src="./dist/node.js" charset="utf-8"></script>
+	<script src="./dist/scene.js" charset="utf-8"></script>
+	<script src="./dist/layer.js" charset="utf-8"></script>
+	<script src="./dist/sceneManager.js" charset="utf-8"></script>
+	<script src="./dist/action.js" charset="utf-8"></script>
+	<script src="./dist/sprite.js" charset="utf-8"></script>
+	<script src="./dist/eventManager.js" charset="utf-8"></script>
+	<script src="./dist/musicManager.js" charset="utf-8"></script>
+	<script src="./dist/music.js" charset="utf-8"></script>
+	<script src="./dist/animation.js" charset="utf-8"></script>
+	<script src="./dist/text.js" charset="utf-8"></script>
+	<script src="./dist/texture.js" charset="utf-8"></script>
+	<script src="./dist/collision.js" charset="utf-8"></script>
+	<script src="./dist/dafeizhu.js" charset="utf-8"></script>
+
+	<!-- <script src="./src/function.js" charset="utf-8"></script>
+	<script src="./src/engx.js" charset="utf-8"></script>
+	<script src="./src/render.js" charset="utf-8"></script>
+	<script src="./src/node.js" charset="utf-8"></script>
+	<script src="./src/scene.js" charset="utf-8"></script>
+	<script src="./src/layer.js" charset="utf-8"></script>
+	<script src="./src/sceneManager.js" charset="utf-8"></script>
+	<script src="./src/action.js" charset="utf-8"></script>
+	<script src="./src/sprite.js" charset="utf-8"></script>
+	<script src="./src/eventManager.js" charset="utf-8"></script>
+	<script src="./src/musicManager.js" charset="utf-8"></script>
+	<script src="./src/music.js" charset="utf-8"></script>
+	<script src="./src/animation.js" charset="utf-8"></script>
+	<script src="./src/text.js" charset="utf-8"></script>
+	<script src="./src/texture.js" charset="utf-8"></script>
+	<script src="./src/collision.js" charset="utf-8"></script>
+	<script src="./src/dafeizhu.js" charset="utf-8"></script> -->
+
+	<!-- <script src="./src/demo.js" charset="utf-8"></script> -->
+
+	<script type="text/javascript">
+/*
+		window.load=function(){
+			let a=1,b=0,c=0,d=1,e=100,f=100;
+			let point=[0,0,1];
+
+			var matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]])
+			var result=math.multiply(matrix,point).toArray();
+			console.log(result[0]+"/"+result[1]);
+		}*/
+	</script>
 </head>
 <body onload="load()" style="padding:0;margin:0;">
-<canvas id="canvas"></canvas>
-<div onclick="stopAction()">stop</div>
-<div onclick="pauseAction()">pause</div>
-<div onclick="goAction()">go</div>
+	<canvas id="canvas"></canvas>
+
+	<div class="btn-group">
+		<!-- <div class="btn btn-red" onclick="startAction()">start</div>
+		<div class="btn btn-green" onclick="stopAction()">stop</div>
+		<div class="btn btn-blue" onclick="pauseAction()">pause</div> -->
+		<!-- <div class="btn btn-red" onclick="runAction()">run</div>
+		<div class="btn btn-green" onclick="playMusicAction()">playMusic</div>
+		<div class="btn btn-blue" onclick="stopMusicAction()">stopMusic</div>
+		<div class="btn btn-red" onclick="pauseMusicAction()">pauseMusic</div> -->
+
+	</div>
 
 </body>
 </html>

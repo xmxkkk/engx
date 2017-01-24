@@ -1,0 +1,36 @@
+.btn-group{
+	line-height: 35px;
+	height:35px;
+	clear:both;
+	overflow: hidden;
+}
+.btn{
+	float:left;
+	width: 60px;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+.btn-red{
+	background: red;
+	color:#fff;
+}
+.btn-red:hover{
+	background: #aa0000;
+}
+.btn-blue{
+	background: blue;
+	color:#fff;
+}
+.btn-blue:hover{
+	background: #0000aa;
+	color:#fff;
+}
+.btn-green{
+	background: green;
+	color:#fff;
+}
+.btn-green:hover{
+	background: #00aa00;
+	color:#fff;
+}
