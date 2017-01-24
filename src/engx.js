@@ -1,6 +1,6 @@
 'use strict'
 
-var log=console.log;
+// var log=console.log;
 
 class Engx{
 	constructor(canvas,opt){

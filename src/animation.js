@@ -37,7 +37,7 @@ class Animation extends Sprite{
 		this.action=new AnimateAction({time:this.intervalTime*this.frames.length,currentIndex:this.frames.length,repeat:repeat
 			,onComplete:function(val){
 				self.status="stop";
-				onComplete(val);
+				onComplete&&onComplete(val);
 			}});
 		this.runAction(this.action);
 		this.status="start";

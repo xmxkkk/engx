@@ -30,47 +30,52 @@ class Render{
 	    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
 		this.contextBuffer.clearRect(0, 0, this.canvasBuffer.width, this.canvasBuffer.height);
 
+		this.realFps=this.fps;
 	}
 	getTime(){
       return this.times*this.interval;
 	}
 	render(){
-		_engx.collision.check();
+		let scene=_engx.sceneManager.currentScene;
+		if(scene){
+			_engx.collision.check();
 
-		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
-	    this.contextBuffer.clearRect(0, 0, this.canvasBuffer.width, this.canvasBuffer.height);
+			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+		    this.contextBuffer.clearRect(0, 0, this.canvasBuffer.width, this.canvasBuffer.height);
 
-	    //contextBuffer用于绘制的cxt
-	    _engx.sceneManager.currentScene&&
-	    _engx.sceneManager.currentScene.draw&&
-	    _engx.sceneManager.currentScene.draw(this.contextBuffer);
+		    //contextBuffer用于绘制的cxt
+		    scene&&
+		    scene.draw&&
+		    scene.draw(this.contextBuffer);
 
-	    this.context.drawImage(this.canvasBuffer, 0, 0);
+		    this.context.drawImage(this.canvasBuffer, 0, 0);
 
-	    TWEEN.update(this.getTime());
+		    TWEEN.update(this.getTime());
 
-		++this.times;
+			++this.times;
+		}
 	}
 	_startRender(){
 		// this.handleId=setInterval(this.render,this.interval);
 		this.status="start";
-		var self=this;
-		(function animate(){
-			if(self.status=="start"){
-				self.render();
-				self.handleId=setTimeout(animate,self.interval);
-			}else if(self.handleId=="stop"){
-				clearTimeout(self.handleId);
+		var timeFunc=function(r){
+			if(r.status=="start"){
+				let benchStart=new Date().getTime();
+				r.render();
+				r.handleId=setTimeout(timeFunc,r.interval,r);
+				r.realFps=parseInt(1000.0/(new Date().getTime()-benchStart+r.interval));
+			}else if(r.handleId=="stop"){
+				clearTimeout(r.handleId);
+				r.handleId=0;
 			}
-		})();
+		}
+		this.handleId=setTimeout(timeFunc,this.interval,this);
 	}
 	_stopRender(){
 		this.status="stop";
 		if(this.handleId){
 			log("stop="+this.handleId);
-			for(let id=this.handleId-5;id<this.handleId+10;id++){
-				clearTimeout(id);
-			}
+			clearTimeout(this.handleId);
 			this.handleId=0;
 		}
 	}

@@ -31,3 +31,7 @@ Sprite extends Layer{
 
 
 audio模块
+
+
+圆形和矩形的碰撞问题
+矩形旋转后borders问题

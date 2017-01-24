@@ -21,6 +21,7 @@ var Node = function () {
 				this.mask = opt.mask || null;
 				this.shape = opt.shape || "box";
 				this.collision = opt.collision || null;
+				this.tag = opt.tag || null;
 
 				this.borders = [];
 				this.radius = 0;

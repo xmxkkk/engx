@@ -1,6 +1,10 @@
 'use strict'
 var debug=true;
 
+var log=function(value){
+	debug&&console.log(value);
+}
+
 var eventNames=["mousedown","mousemove","mouseup","mouseenter","mouseleave","mouseout","mouseover","keydown","keypress","keyup"];
 
 var noColor="rgba(0,0,0,0)";
@@ -32,7 +36,22 @@ var containPoint =function(p, points){
  　 // 单边交点为偶数，点在多边形之外 ---
   　return (nCross % 2 == 1);
 }
+var pointDistance=function(pos1,pos2){
+	return Math.sqrt((pos1[0]-pos2[0])*(pos1[0]-pos2[0])+(pos1[1]-pos2[1])*(pos1[1]-pos2[1]));
+}
+//var pointToLine(double PAx, double PAy,double PBx, double PBy,double PCx, double PCy)
+var pointToLine=function(point,point1,point2){
+    var a=pointDistance(point,point1);
+    var b=pointDistance(point1,point2);
+    var c=pointDistance(point,point2);
+    if(b*b>=c*c+a*a)return c;
+    if(c*c>=b*b+a*a)return b;
+    var l=(a+b+c)/2;
+    var s=Math.sqrt(l*(l-a)*(l-b)*(l-c));
+    return 2*s/a;
+}
 
+/*
 var loadAudio=function(resourceData,callback){
 	var xhr=new XMLHttpRequest();
 	xhr.open('GET',resourceData.url,true);
@@ -49,4 +68,4 @@ var loadAudio=function(resourceData,callback){
 	});
 	}
 	xhr.send();
-}
+}*/

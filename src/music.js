@@ -18,6 +18,7 @@ class Music{
 	    _engx.musicManager.addMusic(this);
 	}
 	start(){
+		this.audio.volume=0.1;
 	    this.audio.play();
 	    this.status="start";
 	}

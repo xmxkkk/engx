@@ -27,6 +27,7 @@ var Music = function () {
 	_createClass(Music, [{
 		key: 'start',
 		value: function start() {
+			this.audio.volume = 0.1;
 			this.audio.play();
 			this.status = "start";
 		}

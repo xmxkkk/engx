@@ -13,7 +13,7 @@ window.load=function(){
 		[
 			{name:'meinv',url:'https://img6.bdstatic.com/img/image/smallpic/xiaoqingxin112.jpg',type:'image'},
 			{name:'meinv2',url:'http://img6.bdstatic.com/img/image/smallpic/chongwu112.jpeg',type:'image'},
-			{name:'bgmusic',url:"./resource/audio/music.mp3",type:"audio"},
+			// {name:'bgmusic',url:"./resource/audio/music.mp3",type:"audio"},
 			{name:'gun',url:"./resource/audio/gun.WAV",type:"audio"},
 			{name:'animate',url:"./resource/img/F3_CHA41.png",type:"image"},
 			{name:"bg",url:'./resource/img/bg.jpg',type:"image"},
@@ -50,7 +50,8 @@ window.load=function(){
 	anim.zIndex=2;
 	anim.intervalTime=150;
 	anim.alpha=1;
-	anim.rotate=45;
+	// anim.rotate=45;
+	anim.mask="00000001";
 
 	let aa=new AlphaAction({alpha:0,time:3000});
 
@@ -86,6 +87,9 @@ window.load=function(){
 		moveBy.stop();
 		running=false;
 	})
+	anim.collision=function(node){
+		log(node);
+	}
 
 	let bg=new Sprite({});
 	bg.anchor={x:0,y:0};
@@ -95,17 +99,23 @@ window.load=function(){
 	bg.zIndex=-1;
 	// scene.addSprite(bg);
 
-	// scene.addSprite(anim);
+	scene.addSprite(anim);
 
-	let mm=new Sprite({});
+	let mm=new Sprite({mask:"00000001"});
 	mm.texture=new Texture({name:'meinv2'});
 	mm.width=150;
 	mm.height=150;
 	mm.anchor={x:1,y:1}
 	mm.position={x:300,y:300}
+	mm.shape="circle";
+
+	mm.collision=function(node){
+		log(node);
+	}
 
 	// mm.shape="circle";
-	// scene.addSprite(mm);
+	scene.addSprite(mm);
+
 
 	mm.mousedown(function(event){
 		if(event.selected){
@@ -155,7 +165,7 @@ window.load=function(){
 	let music=null;
 	scene.enter=function(){
 		log("why here!");
-		music=new Music({audioName:'bgmusic',loop:false});
+		// music=new Music({audioName:'bgmusic',loop:false});
 		// music.start();
 	};
 	//this.textAlign=opt.textAlign||"center";

@@ -52,12 +52,60 @@ var Collision = function () {
 										node1.collision && node1.collision(node2);
 										node2.collision && node2.collision(node1);
 									}
+								} else if (node1.shape == "circle" && node2.shape == "circle") {
+									if (this.circleAndcircle(node1, node2)) {
+										node1.collision && node1.collision(node2);
+										node2.collision && node2.collision(node1);
+									}
+								} else if (node1.shape == "circle" && node2.shape == "box") {
+									if (this.circleAndbox(node1, node2)) {
+										node1.collision && node1.collision(node2);
+										node2.collision && node2.collision(node1);
+									}
+								} else if (node2.shape == "circle" && node1.shape == "box") {
+									if (this.circleAndbox(node2, node1)) {
+										node1.collision && node1.collision(node2);
+										node2.collision && node2.collision(node1);
+									}
 								}
 							}
 						}
 					}
 				}
 			}
+		}
+	}, {
+		key: "circleAndbox",
+		value: function circleAndbox(node1, node2) {
+			//pointToLine
+			var node1Position = [node1.position.x + (0.5 - node1.anchor.x) * node1.width, node1.position.y + (0.5 - node1.anchor.y) * node1.height];
+			for (var i = 0; i < node2.borders.length; i++) {
+				var x = node2.borders[i];
+
+				var distance = pointDistance(node2.borders[i], node1Position);
+				if (distance < node1.width / 2) {
+					return true;
+				}
+			}
+
+			var len = node2.borders.length;
+			for (var _i3 = 0; _i3 < len; _i3++) {
+				var _distance = pointToLine(node1Position, node2.borders[_i3 % len], node2.borders[(_i3 + 1) % len]);
+				if (_distance < node1.width / 2) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}, {
+		key: "circleAndcircle",
+		value: function circleAndcircle(node1, node2) {
+			var distance = pointDistance([node1.position.x, node1.position.y], [node2.position.x, node2.position.y]);
+			if (distance <= node1.width / 2 + node2.width / 2) {
+				return true;
+			}
+			return false;
 		}
 	}, {
 		key: "boxAndbox",
@@ -67,8 +115,8 @@ var Collision = function () {
 					return true;
 				}
 			}
-			for (var _i3 = 0; _i3 < node2.borders.length; _i3++) {
-				if (containPoint(node2.borders[_i3], node1.borders)) {
+			for (var _i4 = 0; _i4 < node2.borders.length; _i4++) {
+				if (containPoint(node2.borders[_i4], node1.borders)) {
 					return true;
 				}
 			}

@@ -41,12 +41,56 @@ class Collision{
 									node1.collision&&node1.collision(node2);
 									node2.collision&&node2.collision(node1);
 								}
+							}else if(node1.shape=="circle"&&node2.shape=="circle"){
+								if(this.circleAndcircle(node1,node2)){
+									node1.collision&&node1.collision(node2);
+									node2.collision&&node2.collision(node1);
+								}
+							}else if(node1.shape=="circle"&&node2.shape=="box"){
+								if(this.circleAndbox(node1,node2)){
+									node1.collision&&node1.collision(node2);
+									node2.collision&&node2.collision(node1);
+								}
+							}else if(node2.shape=="circle"&&node1.shape=="box"){
+								if(this.circleAndbox(node2,node1)){
+									node1.collision&&node1.collision(node2);
+									node2.collision&&node2.collision(node1);
+								}
 							}
 						}
 					}
 				}
 			}
 		}
+	}
+	circleAndbox(node1,node2){
+		//pointToLine
+		let node1Position=[node1.position.x+(0.5-node1.anchor.x)*node1.width,node1.position.y+(0.5-node1.anchor.y)*node1.height];
+		for(let i=0;i<node2.borders.length;i++){
+			let x=node2.borders[i];
+
+			let distance=pointDistance(node2.borders[i],node1Position);
+			if(distance<node1.width/2){
+				return true;
+			}
+		}
+
+		let len=node2.borders.length;
+		for(let i=0;i<len;i++){
+			let distance=pointToLine(node1Position,node2.borders[i%len],node2.borders[(i+1)%len]);
+			if(distance<node1.width/2){
+				return true;
+			}
+		}
+
+		return false;
+	}
+	circleAndcircle(node1,node2){
+		let distance=pointDistance([node1.position.x,node1.position.y],[node2.position.x,node2.position.y]);
+		if(distance<=(node1.width/2+node2.width/2)){
+			return true;
+		}
+		return false;
 	}
 	boxAndbox(node1,node2){
 		for(let i=0;i<node1.borders.length;i++){

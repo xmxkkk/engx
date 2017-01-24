@@ -31,6 +31,8 @@ var Scene = function (_Node) {
 		_this.resourceData = null;
 		var layer = new Layer({});
 		_this.addLayer(layer);
+
+		_this.fpsText = null;
 		return _this;
 	}
 
@@ -68,14 +70,38 @@ var Scene = function (_Node) {
 						media.name = this.resourceData[i].name;
 						media.preload = "auto";
 						media.load();
-						media.addEventListener("canplaythrough", function () {
-							self.resource['audio'][this.name] = this;
-							len--;
-							if (len <= 0) {
-								callback();
-								media.addEventListener("canplaythrough", null);
+
+						media.handleId = setInterval(function (m) {
+							if (m.readyState == 4) {
+								clearTimeout(m.handleId);
+								self.resource['audio'][m.name] = m;
+								len--;
+								if (len <= 0) {
+									callback();
+									log("callback2");
+								}
 							}
-						});
+						}, 10, media);
+
+						// media.addEventListener("canplay",function(){
+						//     self.resource['audio'][this.name]=this;
+						//     len--;
+						//     if(len<=0){
+						//         callback();
+						// 		log("callback22");
+						//         media.addEventListener("canplay",null);
+						//     }
+						// });
+						// media.addEventListener("canplaythrough",function(){
+						// 	log("canplaythrough="+this.name);
+						//     self.resource['audio'][this.name]=this;
+						//     len--;
+						//     if(len<=0){
+						//         callback();
+						// 		log("callback22");
+						//         media.addEventListener("canplaythrough",null);
+						//     }
+						// });
 						/*
       var src=this.resourceData[i].url;
       var name=this.resourceData[i].name;
@@ -97,19 +123,15 @@ var Scene = function (_Node) {
 	}, {
 		key: 'draw',
 		value: function draw(cxt) {
-			// cxt.save();
-			// this.predraw(cxt);
-			// this.eventHandle(cxt);
+			if (debug) {
+				if (!this.fpsText) {
+					this.fpsText = new Text({ fontSize: 30, textAlign: 'left', textBaseline: 'top' });
+					var layer = this.lastLayer();
+					layer.addNode(this.fpsText);
+				}
+				this.fpsText.text = _engx.render.realFps;
+			}
 			this.childrenDraw(cxt);
-			// cxt.restore();
-
-			/*
-   let nodeNum=0;
-      for(var i=0;i<this.children.length;i++){
-          this.children[i].draw(cxt);
-   	nodeNum+=this.children[i].getNodeNum();
-      }*/
-			// debug&&log(nodeNum);
 		}
 	}, {
 		key: 'addLayer',
@@ -127,7 +149,7 @@ var Scene = function (_Node) {
 	}, {
 		key: 'lastLayer',
 		value: function lastLayer() {
-			return this.children[this.children.length];
+			return this.children[this.children.length - 1];
 		}
 	}, {
 		key: 'addSprite',

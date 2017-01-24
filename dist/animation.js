@@ -59,7 +59,7 @@ var Animation = function (_Sprite) {
 			this.action = new AnimateAction({ time: this.intervalTime * this.frames.length, currentIndex: this.frames.length, repeat: repeat,
 				onComplete: function onComplete(val) {
 					self.status = "stop";
-					_onComplete(val);
+					_onComplete && _onComplete(val);
 				} });
 			this.runAction(this.action);
 			this.status = "start";

@@ -12,7 +12,7 @@ window.load = function () {
 	});
 
 	var gameScene = new Scene({});
-	gameScene.addResource([{ name: 'fly', url: './resource/img/fly.png' + "?time=" + randomId(), type: 'image' }, { name: 'feizhu', url: './resource/img/feizhu.png' + "?time=" + randomId(), type: 'image' }, { name: 'daodan', url: './resource/img/daodan.png' + "?time=" + randomId(), type: 'image' }, { name: 'gun', url: './resource/audio/gun.wav' + "?time=" + randomId(), type: "audio" }, { name: 'boom', url: './resource/audio/3431.mp3' + "?time=" + randomId(), type: "audio" }, { name: 'flyboom', url: './resource/audio/flyboom.wav' + "?time=" + randomId(), type: "audio" }, { name: 'boom', url: './resource/img/boom.png' + "?time=" + randomId(), type: "image" }]);
+	gameScene.addResource([{ name: 'fly', url: './resource/img/fly.png', type: 'image' }, { name: 'feizhu', url: './resource/img/feizhu.png', type: 'image' }, { name: 'daodan', url: './resource/img/daodan.png', type: 'image' }, { name: 'gun', url: './resource/audio/gun.wav', type: "audio" }, { name: 'boom', url: './resource/audio/3431.mp3', type: "audio" }, { name: 'flyboom', url: './resource/audio/flyboom.wav', type: "audio" }, { name: 'boom', url: './resource/img/boom.png', type: "image" }]);
 	var layer = new Layer({});
 	gameScene.addLayer(layer);
 
@@ -24,28 +24,21 @@ window.load = function () {
 		feizhuHandleId = setInterval(function () {
 			if (_engx.render.getTime() - feizhuTime > feizhuIntervalTime) {
 				(function () {
-					var feizhu = new Sprite({ texture: "feizhu", mask: "00000011" });
+					var feizhu = new Sprite({ texture: "feizhu", mask: "00000011", tag: "feizhu" });
 					feizhu.position = { x: parseInt(Math.random() * winWidth), y: 0 };
 					feizhu.collision = function (node) {
-						if (node.texture == "feizhu") {
+						if (node.tag == "feizhu") {
 							return;
-						} else if (node.texture == "daodan") {
-							// console.log("feizhu==="+node);
+						} else if (node.tag == "daodan") {
 							this.remove();
 						}
 					};
 					layer.addSprite(feizhu);
 
-					var moveTo = new MoveToAction({
-						time: 1000,
-						position: {
-							y: winHeight + 60,
-							x: parseInt(Math.random() * 360) + 20
-						},
+					var moveTo = new MoveToAction({ time: 1000, position: { y: winHeight + 60, x: parseInt(Math.random() * 360) + 20 },
 						onComplete: function onComplete(val) {
 							feizhu.remove();
-						}
-					});
+						} });
 					feizhu.runAction(moveTo);
 
 					feizhuTime = _engx.render.getTime();
@@ -58,10 +51,10 @@ window.load = function () {
 	};
 	var gameStatus = "running";
 
-	var fly = new Sprite({ texture: "fly", zIndex: 3, mask: "00000010" });
+	var fly = new Sprite({ texture: "fly", zIndex: 3, shape: "circle", mask: "00000010", tag: "fly" });
 	fly.position = { x: winWidth / 2, y: winHeight - 80 };
 	fly.collision = function (node) {
-		if (node.texture == "feizhu" && gameStatus != "over") {
+		if (node.tag == "feizhu" && gameStatus != "over") {
 			(function () {
 				gameStatus = "over";
 				fly.touch.down = false;
@@ -83,7 +76,6 @@ window.load = function () {
 				boom.run(0, function (val) {
 					boom.remove();
 					fly.remove();
-					// engx.stop();
 				});
 			})();
 		}
@@ -99,11 +91,10 @@ window.load = function () {
 			// if((_engx.render.getTime()-fasheTime)>30&&fly.touch.down==true){
 			if (fly.touch.down == true) {
 				(function () {
-
-					var daodan = new Sprite({ texture: "daodan", mask: "00000001", position: { x: fly.position.x, y: fly.position.y - 10 } });
+					var daodan = new Sprite({ texture: "daodan", mask: "00000001", tag: "daodan", position: { x: fly.position.x, y: fly.position.y - 10 } });
 					daodan.collision = function (node) {
-						if (node.texture == "feizhu") {
-							console.log("xxxxxxx" + node);
+						if (node.tag == "feizhu") {
+							// console.log("xxxxxxx"+node);
 							this.remove();
 							var gunMusic = new Music({ audioName: 'boom', loop: false });
 							gunMusic.start();
@@ -154,6 +145,6 @@ window.load = function () {
 	engx.start();
 
 	window.pauseAction = function () {
-		engx.pause(function () {});
+		engx.pause();
 	};
 };
