@@ -5,23 +5,23 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var MusicManager = function () {
-	function MusicManager() {
-		_classCallCheck(this, MusicManager);
+    function MusicManager() {
+        _classCallCheck(this, MusicManager);
 
-		this.musics = [];
-	}
+        this.musics = [];
+    }
 
-	_createClass(MusicManager, [{
-		key: 'addMusic',
-		value: function addMusic(music) {
-			this.musics[music.id] = music;
-		}
-	}, {
-		key: 'removeMusic',
-		value: function removeMusic(music) {
-			delete this.musics[music.id];
-		}
-	}]);
+    _createClass(MusicManager, [{
+        key: 'addMusic',
+        value: function addMusic(music) {
+            this.musics[music.id] = music;
+        }
+    }, {
+        key: 'removeMusic',
+        value: function removeMusic(music) {
+            delete this.musics[music.id];
+        }
+    }]);
 
-	return MusicManager;
+    return MusicManager;
 }();
