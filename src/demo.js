@@ -97,7 +97,7 @@ window.load = function() {
         x: 100,
         y: 100
     };
-    scene.addNode(boom);
+    // scene.addNode(boom);
     boom.run(0, function(val) {
         boom.remove();
         // engx.stop();
@@ -133,7 +133,7 @@ window.load = function() {
     anim.zIndex = 2;
     anim.intervalTime = 150;
     anim.alpha = 1;
-    // anim.rotate=45;
+    anim.rotate=45;
     anim.mask = "00000001";
 
     let aa = new AlphaAction({
@@ -180,7 +180,7 @@ window.load = function() {
         running = false;
     })
     anim.collision = function(node) {
-        log("anim");
+        // log("anim");
     }
 
     let bg = new Sprite({});
@@ -217,11 +217,11 @@ window.load = function() {
     mm.shape = "circle";
 
     mm.collision = function(node) {
-        log("mm");
+        // log("mm");
     }
 
     // mm.shape="circle";
-    scene.addSprite(mm);
+    // scene.addSprite(mm);
 
 
     mm.mousedown(function(event) {
