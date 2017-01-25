@@ -1,9 +1,11 @@
 'use strict'
 
 window.load = function() {
+	let winWidth=screen.width;
+	let winHeight=screen.height;
     let engx = new Engx(document.getElementById('canvas'), {
-        width: 800,
-        height: 600,
+        width: winWidth,
+        height: winHeight,
         background: 'rgb(88,88,88)',
         fps: 60
     });
@@ -38,7 +40,13 @@ window.load = function() {
         tag: "mm"
     });
 
-    mm.mousedown(function() {
+    mm.mousedown(function(event) {
+        let moveTo = new RotateToAction({
+            rotate: 60
+        });
+        mm.runAction(moveTo);
+    });
+	mm.touchstart(function(event) {
         let moveTo = new RotateToAction({
             rotate: 60
         });

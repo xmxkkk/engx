@@ -1,8 +1,9 @@
 'use strict'
 
 window.load = function() {
-    let winWidth = 400;
-    let winHeight = 600;
+
+	let winWidth=document.body.scrollWidth;
+	let winHeight=document.body.scrollHeight;
 
     let engx = new Engx(document.getElementById('canvas'), {
         width: winWidth,
@@ -55,7 +56,7 @@ window.load = function() {
 
     let feizhuTime = 0;
     let feizhuHandleId = 0;
-    let feizhuIntervalTime = 200;
+    let feizhuIntervalTime = 400;
 
     let fasheFeizhu = function() {
         feizhuHandleId = setInterval(function() {
@@ -190,7 +191,6 @@ window.load = function() {
 
     let fasheDaodan = function() {
         daodanhandleId = setInterval(function() {
-            // if((_engx.render.getTime()-fasheTime)>30&&fly.touch.down==true){
             if (fly.touch.down == true) {
                 let daodan = new Sprite({
                     texture: "daodan",
@@ -237,32 +237,42 @@ window.load = function() {
             y: 0
         }
     };
-    fly.mousedown(function(event) {
+	let mousedown=function(event) {
         if (event.selected) {
             log(1);
             fly.touch.down = true;
             fly.touch.downPos = {
-                x: event.layerX,
-                y: event.layerY
+                x: event.eventPoint.x,
+                y: event.eventPoint.y
             };
             fly.touch.position = fly.position;
 
             fasheDaodan();
         }
-    });
-    fly.mousemove(function(event) {
+    };
+    fly.mousedown(mousedown);
+	fly.touchstart(mousedown);
+
+	let mousemove=function(event) {
         if (fly.touch.down) {
-            let dx = event.layerX - fly.touch.downPos.x;
+            let dx = event.eventPoint.x - fly.touch.downPos.x;
             let dy = 0;
             fly.position = {
                 x: fly.touch.position.x + dx,
                 y: fly.touch.position.y + dy
             }
         }
-    });
-    fly.mouseup(function(event) {
+    };
+    fly.mousemove(mousemove);
+	fly.touchmove(mousemove);
+
+
+	let mouseup=function(event) {
         fly.touch.down = false;
-    });
+    };
+    fly.mouseup(mouseup);
+	fly.touchend(mouseup);
+	fly.touchcancel(mouseup);
     // layer.removeNode(fly);
     engx.sceneManager.go(gameScene);
     engx.start();

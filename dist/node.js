@@ -198,8 +198,23 @@ var Node = function () {
             for (var i = 0; i < eventNames.length; i++) {
                 var name = eventNames[i];
                 if (this.events[name] && this.events[name].event) {
-                    var px = this.events[name].event.layerX;
-                    var py = this.events[name].event.layerY;
+                    var event = this.events[name].event;
+
+                    var px = 0,
+                        py = 0;
+                    if (event.type == "touchstart" || event.type == "touchmove") {
+                        px = event.touches[0].clientX;
+                        py = event.touches[0].clientY;
+                    } else if (event.type == "touchend" || event.type == "touchcancel") {
+                        px = event.changedTouches[0].clientX;
+                        py = event.changedTouches[0].clientY;
+                    } else {
+                        px = event.layerX;
+                        py = event.layerY;
+                    }
+
+                    this.events[name].event.eventPoint = { x: px, y: py };
+
                     if (cxt.isPointInPath(px, py)) {
                         this.events[name].event.selected = true;
                     }

@@ -5,7 +5,7 @@ var log = function(value) {
     debug && console.log(value);
 }
 
-var eventNames = ["mousedown", "mousemove", "mouseup", "mouseenter", "mouseleave", "mouseout", "mouseover", "keydown", "keypress", "keyup"];
+var eventNames = ["mousedown", "mousemove", "mouseup","touchstart","touchmove","touchend","touchcancel", "mouseenter", "mouseleave", "mouseout", "mouseover", "keydown", "keypress", "keyup"];
 
 var noColor = "rgba(0,0,0,0)";
 var yesColor = "rgba(256,0,0,1)";

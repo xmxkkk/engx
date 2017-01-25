@@ -1,8 +1,9 @@
 'use strict';
 
 window.load = function () {
-    var winWidth = 400;
-    var winHeight = 600;
+
+    var winWidth = document.body.scrollWidth;
+    var winHeight = document.body.scrollHeight;
 
     var engx = new Engx(document.getElementById('canvas'), {
         width: winWidth,
@@ -46,7 +47,7 @@ window.load = function () {
 
     var feizhuTime = 0;
     var feizhuHandleId = 0;
-    var feizhuIntervalTime = 200;
+    var feizhuIntervalTime = 400;
 
     var fasheFeizhu = function fasheFeizhu() {
         feizhuHandleId = setInterval(function () {
@@ -184,7 +185,6 @@ window.load = function () {
 
     var fasheDaodan = function fasheDaodan() {
         daodanhandleId = setInterval(function () {
-            // if((_engx.render.getTime()-fasheTime)>30&&fly.touch.down==true){
             if (fly.touch.down == true) {
                 (function () {
                     var daodan = new Sprite({
@@ -233,32 +233,41 @@ window.load = function () {
             y: 0
         }
     };
-    fly.mousedown(function (event) {
+    var mousedown = function mousedown(event) {
         if (event.selected) {
             log(1);
             fly.touch.down = true;
             fly.touch.downPos = {
-                x: event.layerX,
-                y: event.layerY
+                x: event.eventPoint.x,
+                y: event.eventPoint.y
             };
             fly.touch.position = fly.position;
 
             fasheDaodan();
         }
-    });
-    fly.mousemove(function (event) {
+    };
+    fly.mousedown(mousedown);
+    fly.touchstart(mousedown);
+
+    var mousemove = function mousemove(event) {
         if (fly.touch.down) {
-            var dx = event.layerX - fly.touch.downPos.x;
+            var dx = event.eventPoint.x - fly.touch.downPos.x;
             var dy = 0;
             fly.position = {
                 x: fly.touch.position.x + dx,
                 y: fly.touch.position.y + dy
             };
         }
-    });
-    fly.mouseup(function (event) {
+    };
+    fly.mousemove(mousemove);
+    fly.touchmove(mousemove);
+
+    var mouseup = function mouseup(event) {
         fly.touch.down = false;
-    });
+    };
+    fly.mouseup(mouseup);
+    fly.touchend(mouseup);
+    fly.touchcancel(mouseup);
     // layer.removeNode(fly);
     engx.sceneManager.go(gameScene);
     engx.start();
