@@ -191,7 +191,7 @@ window.load = function() {
 
     let fasheDaodan = function() {
         daodanhandleId = setInterval(function() {
-            if (fly.touch.down == true) {
+            if ((_engx.render.getTime()-fasheTime)>150 && fly.touch.down == true) {
                 let daodan = new Sprite({
                     texture: "daodan",
                     mask: "00000001",

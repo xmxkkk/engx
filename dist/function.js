@@ -1,6 +1,6 @@
 'use strict';
 
-var debug = true;
+var debug = false;
 
 var log = function log(value) {
     debug && console.log(value);

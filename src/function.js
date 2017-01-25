@@ -1,5 +1,5 @@
 'use strict'
-var debug = true;
+var debug = false;
 
 var log = function(value) {
     debug && console.log(value);
