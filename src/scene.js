@@ -8,6 +8,8 @@ class Scene extends Node {
         this.width = opt.width || _engx.render.width;
         this.height = opt.height || _engx.render.height;
 
+		this.anchor =opt.anchor||{x:0,y:0};
+
         this.resource = [];
         this.resource['image'] = [];
         this.resource['audio'] = [];
@@ -81,7 +83,7 @@ class Scene extends Node {
                     textAlign: 'left',
                     textBaseline: 'top'
                 });
-                let layer = this.lastLayer();
+                let layer = this.firstLayer();
                 layer.addNode(this.fpsText);
             }
             this.fpsText.text = _engx.render.realFps;

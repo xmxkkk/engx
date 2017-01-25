@@ -21,6 +21,8 @@ var Scene = function (_Node) {
         _this.width = opt.width || _engx.render.width;
         _this.height = opt.height || _engx.render.height;
 
+        _this.anchor = opt.anchor || { x: 0, y: 0 };
+
         _this.resource = [];
         _this.resource['image'] = [];
         _this.resource['audio'] = [];
@@ -99,7 +101,7 @@ var Scene = function (_Node) {
                         textAlign: 'left',
                         textBaseline: 'top'
                     });
-                    var layer = this.lastLayer();
+                    var layer = this.firstLayer();
                     layer.addNode(this.fpsText);
                 }
                 this.fpsText.text = _engx.render.realFps;

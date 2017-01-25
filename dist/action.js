@@ -68,7 +68,6 @@ var MoveToAction = function (_Action) {
         value: function start() {
             var self = this;
             this.preStart(this.sprite.position, this.position, function (val) {
-                self.sprite.scale = val;
                 self.onUpdate && self.onUpdate(val);
             });
         }
@@ -104,7 +103,6 @@ var MoveByAction = function (_Action2) {
                 x: toX,
                 y: toY
             }, function (val) {
-                self.sprite.scale = val;
                 self.onUpdate && self.onUpdate(val);
             });
         }
@@ -133,7 +131,6 @@ var ScaleToAction = function (_Action3) {
         value: function start() {
             var self = this;
             this.preStart(this.sprite.scale, this.scale, function (val) {
-                self.sprite.scale = val;
                 self.onUpdate && self.onUpdate(val);
             });
         }
@@ -170,7 +167,6 @@ var ScaleByAction = function (_Action4) {
                 x: toX,
                 y: toY
             }, function (val) {
-                self.sprite.scale = val;
                 self.onUpdate && self.onUpdate(val);
             });
         }
@@ -195,12 +191,9 @@ var RotateToAction = function (_Action5) {
         key: 'start',
         value: function start() {
             var self = this;
-            this.preStart({
-                rotate: this.sprite.rotate
-            }, {
+            this.preStart(this.sprite, {
                 rotate: this.rotate
             }, function (val) {
-                self.sprite.scale = val;
                 self.onUpdate && self.onUpdate(val);
             });
         }
@@ -227,12 +220,9 @@ var RotateByAction = function (_Action6) {
             var self = this;
             var toRotate = this.rotate + this.sprite.rotate;
 
-            this.preStart({
-                rotate: this.sprite.rotate
-            }, {
+            this.preStart(this.sprite, {
                 rotate: toRotate
             }, function (val) {
-                self.sprite.scale = val;
                 self.onUpdate && self.onUpdate(val);
             });
         }
@@ -257,13 +247,9 @@ var AlphaAction = function (_Action7) {
         key: 'start',
         value: function start() {
             var self = this;
-            this.preStart({
-                alpha: this.sprite.alpha
-            }, {
+            this.preStart(this.sprite, {
                 alpha: this.alpha
             }, function (val) {
-                log(val);
-                self.sprite.alpha = val;
                 self.onUpdate && self.onUpdate(val);
             });
         }
@@ -288,12 +274,9 @@ var AnimateAction = function (_Action8) {
         key: 'start',
         value: function start() {
             var self = this;
-            this.preStart({
-                currentIndex: this.sprite.currentIndex
-            }, {
+            this.preStart(this.sprite, {
                 currentIndex: this.currentIndex
             }, function (val) {
-                self.sprite.currentIndex = this.currentIndex;
                 self.onUpdate && self.onUpdate(val);
             });
         }

@@ -49,7 +49,6 @@ class MoveToAction extends Action {
     start() {
         var self = this;
         this.preStart(this.sprite.position, this.position, function(val) {
-            self.sprite.scale = val;
             self.onUpdate && self.onUpdate(val);
         });
     }
@@ -73,7 +72,6 @@ class MoveByAction extends Action {
             x: toX,
             y: toY
         }, function(val) {
-            self.sprite.scale = val;
             self.onUpdate && self.onUpdate(val);
         });
     }
@@ -90,7 +88,6 @@ class ScaleToAction extends Action {
     start() {
         var self = this;
         this.preStart(this.sprite.scale, this.scale, function(val) {
-            self.sprite.scale = val;
             self.onUpdate && self.onUpdate(val);
         });
     }
@@ -115,7 +112,6 @@ class ScaleByAction extends Action {
             x: toX,
             y: toY
         }, function(val) {
-            self.sprite.scale = val;
             self.onUpdate && self.onUpdate(val);
         });
     }
@@ -128,12 +124,9 @@ class RotateToAction extends Action {
     }
     start() {
         var self = this;
-        this.preStart({
-            rotate: this.sprite.rotate
-        }, {
+        this.preStart(this.sprite, {
             rotate: this.rotate
         }, function(val) {
-            self.sprite.scale = val;
             self.onUpdate && self.onUpdate(val);
         });
     }
@@ -148,14 +141,13 @@ class RotateByAction extends Action {
         var self = this;
         var toRotate = this.rotate + this.sprite.rotate;
 
-        this.preStart({
-            rotate: this.sprite.rotate
-        }, {
-            rotate: toRotate
-        }, function(val) {
-            self.sprite.scale = val;
-            self.onUpdate && self.onUpdate(val);
-        });
+        this.preStart(
+            this.sprite, {
+                rotate: toRotate
+            },
+            function(val) {
+                self.onUpdate && self.onUpdate(val);
+            });
     }
 }
 class AlphaAction extends Action {
@@ -165,15 +157,13 @@ class AlphaAction extends Action {
     }
     start() {
         var self = this;
-        this.preStart({
-            alpha: this.sprite.alpha
-        }, {
-            alpha: this.alpha
-        }, function(val) {
-            log(val);
-            self.sprite.alpha = val;
-            self.onUpdate && self.onUpdate(val);
-        });
+        this.preStart(
+            this.sprite, {
+                alpha: this.alpha
+            },
+            function(val) {
+                self.onUpdate && self.onUpdate(val);
+            });
     }
 }
 
@@ -184,12 +174,9 @@ class AnimateAction extends Action {
     }
     start() {
         var self = this;
-        this.preStart({
-            currentIndex: this.sprite.currentIndex
-        }, {
+        this.preStart(this.sprite, {
             currentIndex: this.currentIndex
         }, function(val) {
-            self.sprite.currentIndex = this.currentIndex;
             self.onUpdate && self.onUpdate(val);
         });
     }

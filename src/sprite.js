@@ -18,7 +18,6 @@ class Sprite extends Layer {
     }
     draw(cxt) {
         if (this.texture) {
-
             cxt.save();
             this.predraw(cxt);
 
@@ -46,14 +45,7 @@ class Sprite extends Layer {
             cxt.strokeStyle = debug ? yesColor : noColor;
             if (this.shape == "box") {
                 cxt.rect(0, 0, this.width, this.height);
-
-                let p1 = this.transformPoint([this.position.x - this.anchor.x * this.width, this.position.y - this.anchor.y * this.height]);
-                let p2 = this.transformPoint([this.position.x - this.anchor.x * this.width + this.width, this.position.y - this.anchor.y * this.height]);
-                let p3 = this.transformPoint([this.position.x - this.anchor.x * this.width + this.width, this.position.y - this.anchor.y * this.height + this.height]);
-                let p4 = this.transformPoint([this.position.x - this.anchor.x * this.width, this.position.y - this.anchor.y * this.height + this.height]);
-
-                this.borders = [p1, p2, p3, p4];
-
+				this.borders=this.transformRect(this,[[0,0],[this.width,0],[this.width,this.height],[0,this.height]]);
             } else if (this.shape == "circle") {
                 cxt.arc(this.width / 2, this.height / 2, this.width / 2, 0, Math.PI * 2, true);
                 this.radius = this.width / 2;

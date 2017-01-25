@@ -43,15 +43,20 @@
 	<script src="./src/text.js" charset="utf-8"></script>
 	<script src="./src/texture.js" charset="utf-8"></script>
 	<script src="./src/collision.js" charset="utf-8"></script>
-	<!-- <script src="./src/dafeizhu.js" charset="utf-8"></script> -->
+	<script src="./src/dafeizhu.js" charset="utf-8"></script>
 
-	<script src="./src/demo.js" charset="utf-8"></script>
+	<!-- <script src="./src/demo.js" charset="utf-8"></script> -->
 
 	<script type="text/javascript">
-/*
-		window.load=function(){
-			let a=1,b=0,c=0,d=1,e=100,f=100;
+		/*window.load=function(){
 			let point=[0,0,1];
+
+			let r1 = 45 * Math.PI / 180;
+			a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+			a = Math.cos(r1);
+			b = Math.sin(r1);
+			c = -Math.sin(r1);
+			d = Math.cos(r1);
 
 			var matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]])
 			var result=math.multiply(matrix,point).toArray();

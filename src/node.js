@@ -2,6 +2,8 @@
 
 class Node {
     constructor(opt) {
+		opt=opt||{};
+
         this.id = randomId();
         this.type = "node";
         this.parent = null;
@@ -48,6 +50,20 @@ class Node {
             })(name);
         }
     }
+	transformRect(node,points){
+		if(!node)return points;
+
+		let p1=node.transformPoint(points[0]);
+		let p2=node.transformPoint(points[1]);
+		let p3=node.transformPoint(points[2]);
+		let p4=node.transformPoint(points[3]);
+
+		points=[p1,p2,p3,p4];
+
+		node=node.parent;
+
+		return this.transformRect(node,points);
+	}
     transformPoint(pos) {
         pos = [pos[0], pos[1], 1];
 
@@ -57,24 +73,11 @@ class Node {
             d = 1,
             e = 0,
             f = 0;
-        let matrix = math.matrix([
-            [a, c, e],
-            [b, d, f],
-            [0, 0, 1]
-        ]);
+        let matrix = null;
 
-        e = this.position.x; //-this.anchor.x*this.width+this.anchor.x*this.width;
-        f = this.position.y; //-this.anchor.y*this.height+this.anchor.y*this.height;
-		matrix = math.matrix([
-            [a, c, e],
-            [b, d, f],
-            [0, 0, 1]
-        ]);
-        pos = math.multiply(matrix, pos);
-
-        a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
-        a = this.scale.x;
-        d = this.scale.y;
+		a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+		e = -this.anchor.x*this.width;
+		f = -this.anchor.y*this.height;
 		matrix = math.matrix([
             [a, c, e],
             [b, d, f],
@@ -95,9 +98,9 @@ class Node {
         ]);
         pos = math.multiply(matrix, pos);
 
-        a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
-        e = -this.anchor.x * this.width;
-        f = -this.anchor.y * this.height;
+		a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+        a = this.scale.x;
+        d = this.scale.y;
 		matrix = math.matrix([
             [a, c, e],
             [b, d, f],
@@ -105,11 +108,22 @@ class Node {
         ]);
         pos = math.multiply(matrix, pos);
 
+		a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+		e = this.position.x;
+		f = this.position.y;
+		matrix = math.matrix([
+            [a, c, e],
+            [b, d, f],
+            [0, 0, 1]
+        ]);
+		// log(this.position);
+		// log(pos);
+        pos = math.multiply(matrix, pos);
+
         pos = pos.toArray();
         return [pos[0], pos[1]];
     }
     predraw(cxt) {
-
         cxt.globalAlpha = this.alpha;
         /*
         		cxt.translate(this.position.x-this.anchor.x*this.width+this.anchor.x*this.width,this.position.y-this.anchor.x*this.width+this.anchor.y*this.height);
@@ -132,9 +146,9 @@ class Node {
         // let pos=[this.position.x,this.position.y,1];
         // let matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]]);
 
-        a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
-        e = this.position.x; //-this.anchor.x*this.width+this.anchor.x*this.width;
-        f = this.position.y; //-this.anchor.y*this.height+this.anchor.y*this.height;
+		a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+        e = this.position.x;
+        f = this.position.y;
         cxt.transform(a, b, c, d, e, f);
 
         // pos=math.multiply(matrix,pos);

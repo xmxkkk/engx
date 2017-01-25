@@ -1,66 +1,70 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>demo</title>
-    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
-    <script type="text/javascript">
-        function init() {
-            var $cvs1 = $('#cvs1');
-            $cvs1[0].width = 800;
-            $cvs1[0].height = 600;
-            var context = $cvs1[0].getContext('2d');
-            context.beginPath();
-            context.arc(400, 300, 100, 0, Math.PI * 2, false);
-            context.closePath();
-            context.fillStyle="blue";
-            context.lineWidth = 2;
-            context.strokeStyle = '#000000';
-            context.fill();
+	<script src="./lib/math.js" charset="utf-8"></script>
 
-            var div = $('#div_cvs')[0];
-            var scrollHeight = div.scrollHeight;
-            var scrollWidth = div.scrollWidth;
-            var clientHeight = div.clientHeight;
-            var clientWidth = div.clientWidth;
-
-            var isTouched = false;
-            var oldX = -1;
-            var oldY = -1;
-            $cvs1.bind('mousedown', function(e) {
-                isTouched = true;
-                oldX = e.clientX;
-                oldY = e.clientY;
-
-            });
-
-            $cvs1.bind('mousemove', function(e) {
-                if (isTouched) {
-                    var deltaX = e.clientX - oldX;
-                    var deltaY = e.clientY - oldY;
-                    oldX = e.clientX;
-                    oldY = e.clientY;
-                    div.scrollLeft -= deltaX;
-                    div.scrollTop -= deltaY;
-                    console.log(div.scrollLeft);
-                }
-
-            });
-
-            $cvs1.bind('mouseup', function(e) {
-                isTouched = false;
-                oldX = -1;
-                oldY = -1;
-            });
-        };
-        $(function() {
-            init();
-        });
-    </script>
 </head>
 <body>
-    <div id="div_cvs" style="position: relative;left:50px;top:50px;width: 400px;height: 300px;overflow: auto">
-        <canvas id="cvs1" style="position: absolute;"></canvas>
-    </div>
+	<script type="text/javascript">
+	/*
+	30,30
+	[0,0][100,0][100,100][0,100]
+	rotate=45
+	[50,-20.71][120.71,50][50,120.71][-20.71,50]
+
+	[30,30][130,30][130,130][30,130]
+	[80,-20.71+30][150.71,80][80,150.71][-20.71+30,80]
+	[30,-40.71]
+	*/
+
+
+		let a=1,b=0,c=0,d=1,e=0,f=0;
+
+		let r1 = 45 * Math.PI / 180;
+
+		// var result=[0,0];
+		// var result=[100,0];
+		// var result=[100,100];
+		var result=[0,0,1];
+
+
+		// result=result.toArray();
+
+		a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+		e=-50;
+		f=-50;
+		var matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]])
+		result=math.multiply(matrix,result);
+
+		// a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+		// e=-50;
+		// f=-50;
+		// var matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]])
+		// result=math.multiply(matrix,result);
+
+		a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+        a = Math.cos(r1);
+        b = Math.sin(r1);
+        c = -Math.sin(r1);
+        d = Math.cos(r1);
+		matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]]);
+		result=math.multiply(matrix,result);
+		// result=result.toArray();
+
+		// a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+		// e=50;
+		// f=50;
+		// matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]]);
+		// result=math.multiply(matrix,result);
+
+		a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+		e=30;
+		f=30;
+		var matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]])
+		result=math.multiply(matrix,result);
+
+
+		result=result.toArray();
+		document.write(result[0]+"/"+result[1]);
+	</script>
 </body>
 </html>

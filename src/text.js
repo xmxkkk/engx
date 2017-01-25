@@ -57,6 +57,8 @@ class Text extends Layer {
             cxt.strokeStyle = debug ? yesColor : noColor;
             cxt.rect(0, 0, this.width, this.height);
 
+			this.borders=this.transformRect(this,[[0,0],[this.width,0],[this.width,this.height],[0,this.height]]);
+
             cxt.stroke();
             this.eventHandle(cxt);
             this.childrenDraw(cxt);

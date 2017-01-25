@@ -64,7 +64,7 @@ window.load = function() {
                     texture: "feizhu",
                     mask: "00000011",
                     tag: "feizhu",
-					shape:"circle"
+                    shape: "circle"
                 });
                 feizhu.position = {
                     x: parseInt(Math.random() * winWidth),

@@ -8,6 +8,8 @@ var Node = function () {
     function Node(opt) {
         _classCallCheck(this, Node);
 
+        opt = opt || {};
+
         this.id = randomId();
         this.type = "node";
         this.parent = null;
@@ -56,6 +58,22 @@ var Node = function () {
     }
 
     _createClass(Node, [{
+        key: "transformRect",
+        value: function transformRect(node, points) {
+            if (!node) return points;
+
+            var p1 = node.transformPoint(points[0]);
+            var p2 = node.transformPoint(points[1]);
+            var p3 = node.transformPoint(points[2]);
+            var p4 = node.transformPoint(points[3]);
+
+            points = [p1, p2, p3, p4];
+
+            node = node.parent;
+
+            return this.transformRect(node, points);
+        }
+    }, {
         key: "transformPoint",
         value: function transformPoint(pos) {
             pos = [pos[0], pos[1], 1];
@@ -66,16 +84,11 @@ var Node = function () {
                 d = 1,
                 e = 0,
                 f = 0;
-            var matrix = math.matrix([[a, c, e], [b, d, f], [0, 0, 1]]);
-
-            e = this.position.x; //-this.anchor.x*this.width+this.anchor.x*this.width;
-            f = this.position.y; //-this.anchor.y*this.height+this.anchor.y*this.height;
-            matrix = math.matrix([[a, c, e], [b, d, f], [0, 0, 1]]);
-            pos = math.multiply(matrix, pos);
+            var matrix = null;
 
             a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
-            a = this.scale.x;
-            d = this.scale.y;
+            e = -this.anchor.x * this.width;
+            f = -this.anchor.y * this.height;
             matrix = math.matrix([[a, c, e], [b, d, f], [0, 0, 1]]);
             pos = math.multiply(matrix, pos);
 
@@ -89,9 +102,17 @@ var Node = function () {
             pos = math.multiply(matrix, pos);
 
             a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
-            e = -this.anchor.x * this.width;
-            f = -this.anchor.y * this.height;
+            a = this.scale.x;
+            d = this.scale.y;
             matrix = math.matrix([[a, c, e], [b, d, f], [0, 0, 1]]);
+            pos = math.multiply(matrix, pos);
+
+            a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+            e = this.position.x;
+            f = this.position.y;
+            matrix = math.matrix([[a, c, e], [b, d, f], [0, 0, 1]]);
+            // log(this.position);
+            // log(pos);
             pos = math.multiply(matrix, pos);
 
             pos = pos.toArray();
@@ -100,7 +121,6 @@ var Node = function () {
     }, {
         key: "predraw",
         value: function predraw(cxt) {
-
             cxt.globalAlpha = this.alpha;
             /*
             		cxt.translate(this.position.x-this.anchor.x*this.width+this.anchor.x*this.width,this.position.y-this.anchor.x*this.width+this.anchor.y*this.height);
@@ -124,8 +144,8 @@ var Node = function () {
             // let matrix=math.matrix([[a,c,e],[b,d,f],[0,0,1]]);
 
             a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
-            e = this.position.x; //-this.anchor.x*this.width+this.anchor.x*this.width;
-            f = this.position.y; //-this.anchor.y*this.height+this.anchor.y*this.height;
+            e = this.position.x;
+            f = this.position.y;
             cxt.transform(a, b, c, d, e, f);
 
             // pos=math.multiply(matrix,pos);

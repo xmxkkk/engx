@@ -54,12 +54,7 @@ var Layer = function (_Node) {
                         cxt.fillStyle = this.background ? this.background : noColor;
                         cxt.fillRect(0, 0, this.width, this.height);
 
-                        var p1 = this.transformPoint([this.position.x - this.anchor.x * this.width, this.position.y - this.anchor.y * this.height]);
-                        var p2 = this.transformPoint([this.position.x - this.anchor.x * this.width + this.width, this.position.y - this.anchor.y * this.height]);
-                        var p3 = this.transformPoint([this.position.x - this.anchor.x * this.width + this.width, this.position.y - this.anchor.y * this.height + this.height]);
-                        var p4 = this.transformPoint([this.position.x - this.anchor.x * this.width, this.position.y - this.anchor.y * this.height + this.height]);
-
-                        this.borders = [p1, p2, p3, p4];
+                        this.borders = this.transformRect(this, [[0, 0], [this.width, 0], [this.width, this.height], [0, this.height]]);
 
                         this.eventHandle(cxt);
                         this.childrenDraw(cxt);
