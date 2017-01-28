@@ -40,11 +40,24 @@ window.load = function() {
         tag: "mm"
     });
 
+	// let timeout=new SetTimeout({time:2000,callback:function(){
+	// 	log("timeout");
+	// }});
+	// timeout.run();
+
+	let interval=new SetInterval({time:2000,callback:function(){
+		log("interval");
+	}});
+
+	interval.run();
+
+
     mm.mousedown(function(event) {
         let moveTo = new RotateToAction({
             rotate: 60
         });
         mm.runAction(moveTo);
+		interval.stop();
     });
 	mm.touchstart(function(event) {
         let moveTo = new RotateToAction({
@@ -62,6 +75,8 @@ window.load = function() {
     layer.addNode(mm);
     scene.addNode(layer);
     // scene.addNode(mm);
+
+
 
     engx.sceneManager.go(scene);
 

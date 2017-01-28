@@ -284,3 +284,53 @@ var AnimateAction = function (_Action8) {
 
     return AnimateAction;
 }(Action);
+
+var TimeoutAction = function (_Action9) {
+    _inherits(TimeoutAction, _Action9);
+
+    function TimeoutAction(opt) {
+        _classCallCheck(this, TimeoutAction);
+
+        return _possibleConstructorReturn(this, (TimeoutAction.__proto__ || Object.getPrototypeOf(TimeoutAction)).call(this, opt));
+    }
+
+    _createClass(TimeoutAction, [{
+        key: 'start',
+        value: function start() {
+            var self = this;
+            this.preStart(0, 1, function (val) {
+                self.onUpdate && self.onUpdate(val);
+            });
+        }
+    }]);
+
+    return TimeoutAction;
+}(Action);
+
+var IntervalAction = function (_Action10) {
+    _inherits(IntervalAction, _Action10);
+
+    function IntervalAction(opt) {
+        _classCallCheck(this, IntervalAction);
+
+        var _this10 = _possibleConstructorReturn(this, (IntervalAction.__proto__ || Object.getPrototypeOf(IntervalAction)).call(this, opt));
+
+        _this10.callback = opt.callback || null;
+        return _this10;
+    }
+
+    _createClass(IntervalAction, [{
+        key: 'start',
+        value: function start() {
+            var self = this;
+            this.preStart(0, 1, function (val) {
+                if (val == 1) {
+                    self.callback && self.callback();
+                }
+                self.onUpdate && self.onUpdate(val);
+            });
+        }
+    }]);
+
+    return IntervalAction;
+}(Action);

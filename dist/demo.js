@@ -39,11 +39,23 @@ window.load = function () {
         tag: "mm"
     });
 
+    // let timeout=new SetTimeout({time:2000,callback:function(){
+    // 	log("timeout");
+    // }});
+    // timeout.run();
+
+    var interval = new SetInterval({ time: 2000, callback: function callback() {
+            log("interval");
+        } });
+
+    interval.run();
+
     mm.mousedown(function (event) {
         var moveTo = new RotateToAction({
             rotate: 60
         });
         mm.runAction(moveTo);
+        interval.stop();
     });
     mm.touchstart(function (event) {
         var moveTo = new RotateToAction({
@@ -61,6 +73,7 @@ window.load = function () {
     layer.addNode(mm);
     scene.addNode(layer);
     // scene.addNode(mm);
+
 
     engx.sceneManager.go(scene);
 };

@@ -181,3 +181,31 @@ class AnimateAction extends Action {
         });
     }
 }
+
+class TimeoutAction extends Action {
+	constructor(opt){
+		super(opt);
+	}
+	start(){
+		var self=this;
+		this.preStart(0,1,function(val){
+			self.onUpdate && self.onUpdate(val);
+		});
+	}
+}
+
+class IntervalAction extends Action{
+	constructor(opt){
+		super(opt);
+		this.callback=opt.callback||null;
+	}
+	start(){
+		var self=this;
+		this.preStart(0,1,function(val){
+			if(val==1){
+				self.callback&&self.callback();
+			}
+			self.onUpdate && self.onUpdate(val);
+		});
+	}
+}
