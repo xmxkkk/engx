@@ -1,21 +1,15 @@
 'use strict'
 
+let num=1<<1;
+//10
+let num2=-1>>>1;
+
+let result=num & num2;
+
+console.log(result.toString(2));
 
 
-for(let i=0;i<10;i++){
-	(function(k){
-		console.log(k);
-	})(i);
-}
+console.log((-1>>>1).toString(2));
 
 
-function a () {
-	var k = 1;
-	return function() {
-		console.log(k);
-	}
-}
-
-var b = a();
-
-b();
+console.log(((-1>>>1)|(1<<2))).toString(2))
